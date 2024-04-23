@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:blocprojects/ticker.dart';
 import 'package:equatable/equatable.dart';
@@ -24,8 +25,24 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   @override
   Future<void> close() {
     _tickerSubscription?.cancel();
-
     return super.close();
+  }
+
+  @override
+  void onEvent(TimerEvent event) {
+    log(event.runtimeType.toString());
+    super.onEvent(event);
+  }
+
+  @override
+  void onChange(Change<TimerState> change) {
+    super.onChange(change);
+  }
+
+  @override
+  void onError(Object error, StackTrace stackTrace) {
+    log(error.toString());
+    super.onError(error, stackTrace);
   }
 
   void _onStart(TimerStarted event, Emitter<TimerState> emit) {
