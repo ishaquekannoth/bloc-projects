@@ -12,7 +12,14 @@ part 'post_state.dart';
 
 EventTransformer<E> throttleDroppable<E>(Duration duration) {
   return (events, mapper) {
+    //here droppable is provided by bloc concurrency library which takes a stream and a mapper function
+    //and returns another stream of the provided type..
+    //it effectively takes a stream and apply with a function and returns the new stream 
+
     return droppable<E>().call(events.throttle(duration), mapper);
+     //throttle function returns a new stream based on provided type stream,with the duration effectively reducing the stream to emit only in provided duration
+     //throttle function is provided by stream transform package 
+    //mapper is a function which returns a stream with provided type {Stream<E> Function(E) mapper}
   };
 }
 
