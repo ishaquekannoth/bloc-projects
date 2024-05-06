@@ -36,9 +36,14 @@ dependencies:
     sdk: flutter
   flutter_bloc: ^8.1.5
   fluttertoast: ^8.2.5
+  formz: ^0.7.0
   http: ^1.2.1
   stream_transform: ^2.1.0
-
+  authentication_repository:
+    path: packages/authentication_repository
+  user_repository:
+    path: packages/user_repository
+    
 dev_dependencies:
   flutter_lints: ^3.0.0
   flutter_test:
