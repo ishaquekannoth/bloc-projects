@@ -7,6 +7,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return MaterialApp(
+      home: SafeArea(
+          child: Scaffold(
+              body: Center(
+        child: Container(
+          color: Colors.greenAccent,
+          child: const Text("This is the centre"),
+        ),
+      ))),
+    );
   }
 }
