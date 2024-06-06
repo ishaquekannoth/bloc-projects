@@ -4,6 +4,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:weather_repository/weather_repository.dart'
     show WeatherRepository;
+
 part 'weather_cubit.g.dart';
 part 'weather_state.dart';
 
@@ -53,6 +54,26 @@ class WeatherCubit extends HydratedCubit<WeatherState> {
           weatherStatus: WeatherStatus.success));
     } on Exception {
       emit(state);
+    }
+  }
+
+  void toggleUnits() {
+    final TemperatureUnits unit = state.temperatureUnits.isCelsius
+        ? TemperatureUnits.fahrenheit
+        : TemperatureUnits.celsius;
+    if (!state.weatherStatus.isSuccess) {
+      emit(state.copyWith(temperatureUnits: unit));
+    }
+    final weather = state.weather;
+    if (weather != Weather.empty) {
+      final temperature = weather!.temperature;
+      final convertedUnit = unit.isCelsius
+          ? temperature.value.toCelsius()
+          : temperature.value.toFahrenheit();
+      emit(state.copyWith(
+          temperatureUnits: unit,
+          weather: weather.copyWith(
+              temperature: Temperature(value: convertedUnit))));
     }
   }
 
