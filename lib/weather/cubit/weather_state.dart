@@ -9,6 +9,7 @@ extension WeatherStatusX on WeatherStatus {
   bool get isFailure => this == WeatherStatus.failure;
 }
 
+@JsonSerializable()
 class WeatherState extends Equatable {
   WeatherState(
       {this.weatherStatus = WeatherStatus.initial,
@@ -34,4 +35,9 @@ class WeatherState extends Equatable {
       temperatureUnits: temperatureUnits ?? this.temperatureUnits,
     );
   }
+
+  factory WeatherState.fromJson(Map<String, dynamic> json) =>
+      _$WeatherStateFromJson(json);
+
+  Map<String, dynamic> toJson() => _$WeatherStateToJson(this);
 }
