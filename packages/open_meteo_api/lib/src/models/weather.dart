@@ -6,7 +6,7 @@ part 'weather.g.dart';
 class Weather {
   const Weather({required this.temperature, required this.weatherCode});
   final double temperature;
-  @JsonKey(name: 'weatherCode')
+  @JsonKey(name: 'weathercode')
   final double weatherCode;
   Map<String, dynamic> toJson() => _$WeatherToJson(this);
   factory Weather.fromJson(Map<String, dynamic> json) =>

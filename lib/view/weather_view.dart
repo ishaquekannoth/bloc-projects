@@ -1,3 +1,4 @@
+import 'package:blocprojects/search/search_page.dart';
 import 'package:blocprojects/settings/setting_page.dart';
 import 'package:blocprojects/theme/cubit/theme_cubit.dart';
 import 'package:blocprojects/weather/cubit/weather_cubit.dart';
@@ -7,7 +8,21 @@ import 'package:blocprojects/weather/widgets/weather_loading.dart';
 import 'package:blocprojects/weather/widgets/weather_populated.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:weather_repository/weather_repository.dart';
 
+
+
+class WeatherPage extends StatelessWidget {
+  const WeatherPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => WeatherCubit(context.read<WeatherRepository>()),
+      child: const WeatherViewWidget(),
+    );
+  }
+}
 class WeatherViewWidget extends StatefulWidget {
   const WeatherViewWidget({super.key});
 
@@ -56,6 +71,14 @@ class _WeatherViewWidgetState extends State<WeatherViewWidget> {
             }
           },
         ),
+      ),
+       floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.search, semanticLabel: 'Search'),
+        onPressed: () async {
+          final city = await Navigator.of(context).push(SearchPage.route());
+          if (!context.mounted) return;
+          await context.read<WeatherCubit>().fetchWeather(city: city);
+        },
       ),
     );
   }

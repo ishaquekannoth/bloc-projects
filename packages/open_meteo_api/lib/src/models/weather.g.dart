@@ -8,7 +8,7 @@ part of 'weather.dart';
 
 Weather _$WeatherFromJson(Map<String, dynamic> json) => Weather(
       temperature: (json['temperature'] as num).toDouble(),
-      weatherCode: (json['weatherCode'] as num).toDouble(),
+      weatherCode: (json['weathercode'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$WeatherToJson(Weather instance) => <String, dynamic>{
